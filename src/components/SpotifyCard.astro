@@ -1,35 +1,30 @@
 ---
-const client_id = import.meta.env.SPOTIFY_CLIENT_ID
-const client_secret = import.meta.env.SPOTIFY_CLIENT_SECRET
-const refresh_token = import.meta.env.SPOTIFY_REFRESH_TOKEN
-const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
-const encoded = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
-const scope = 'user-read-recently-played'
-
-const getAccessToken = async () => {
-    const response = await fetch(TOKEN_ENDPOINT, {
-        method: 'POST',
-        headers: {
-            Authorization: `Basic ${encoded}`,
-            'Content-Type': 'application/x-www-form-urlencoded', 
-        },
-        body: new URLSearchParams({
-        grant_type: 'refresh_token',
-        refresh_token,
-        }),
-    })
-
-    return response.json()
-}
+import { getLastPlayedTracks } from '../lib/spotify'
 
 
-const { access_token } = await getAccessToken()
+const response = await getLastPlayedTracks()
+const { items } = await response.json();
 
-console.log("access_token", access_token)
+const topTenTracks = items.slice(0, 10).map(track => ({
+    artist: track.artists.map(_artist => _artist.name).join(', '),
+    songUrl: track.external_urls.spotify,
+    title: track.name
+}))
 
+console.log(items[0])
 ---
 
 <section>
-    <h1>Currently Playing:</h1>
-    <p>Some data</p>
+    <h3>Currently most played songs:</h1>
+        <ol class="track-list">
+            {topTenTracks.map(track => (
+                <li class="track-list__item"><a href={track.songUrl}>{track.artist} - {track.title}</a></li>
+            ))}
+        </ol>
 </section>
+
+<style>
+    .track-list__item {
+        padding: 0.75rem 0;
+    }
+</style>
