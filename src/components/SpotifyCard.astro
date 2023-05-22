@@ -1,24 +1,24 @@
 ---
 import { getLastPlayedTracks } from '../lib/spotify'
 
-
-const response = await getLastPlayedTracks()
+const response = await getLastPlayedTracks(10)
 const { items } = await response.json();
 
-const topTenTracks = items.slice(0, 10).map(track => ({
-    artist: track.artists.map(_artist => _artist.name).join(', '),
-    songUrl: track.external_urls.spotify,
-    title: track.name
+const formattedTracks = items.map(({track}) => ({
+    artist: track.artists.map((_artist) => _artist.name).join(', '),
+    title: track.name,
+    trackUrl: track.external_urls.spotify
 }))
 
-console.log(items[0])
+console.log('formattedTracks', formattedTracks)
+
 ---
 
 <section>
-    <h3>Currently most played songs:</h1>
-        <ol class="track-list">
-            {topTenTracks.map(track => (
-                <li class="track-list__item"><a href={track.songUrl}>{track.artist} - {track.title}</a></li>
+    <h3>Last 10 Played Songs</h1>
+        <ol>
+            {formattedTracks.map(track => (
+                <li><a href={track.trackUrl}>{track.artist} – {track.title}</a></li>
             ))}
         </ol>
 </section>
