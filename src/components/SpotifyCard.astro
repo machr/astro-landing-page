@@ -1,0 +1,35 @@
+---
+const client_id = import.meta.env.SPOTIFY_CLIENT_ID
+const client_secret = import.meta.env.SPOTIFY_CLIENT_SECRET
+const refresh_token = import.meta.env.SPOTIFY_REFRESH_TOKEN
+const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
+const encoded = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
+const scope = 'user-read-recently-played'
+
+const getAccessToken = async () => {
+    const response = await fetch(TOKEN_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            Authorization: `Basic ${encoded}`,
+            'Content-Type': 'application/x-www-form-urlencoded', 
+        },
+        body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token,
+        }),
+    })
+
+    return response.json()
+}
+
+
+const { access_token } = await getAccessToken()
+
+console.log("access_token", access_token)
+
+---
+
+<section>
+    <h1>Currently Playing:</h1>
+    <p>Some data</p>
+</section>

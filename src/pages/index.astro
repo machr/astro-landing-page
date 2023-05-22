@@ -1,81 +1,165 @@
 ---
+import SpotifyCard from '../components/SpotifyCard.astro';
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+
+
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
+
+	<section class="introduction">
+    <section class="container">
+      <section class="introduction__content">
+			  <h1 class="text-gradient">Hi I'm Mark</h1>
+		    <h2 class="byline">I am a Frontend Developer living in Melbourne, Australia</h2>
+      </section>
+    </section>
+  </section>
+  <section>
+    
+	<section class="brag">
+    <section class="container">
+
+			<h2 class="brag__heading">As seen in the codebases of</h2>
+			<ul class="brag__list">
+				<li class="brag__list-item">Wellcom Worldwide</li>
+				<li class="brag__list-item">Australian Football League</li>
+				<li class="brag__list-item">A Cloud Guru</li>
+				<li class="brag__list-item">Pluralsight</li>
+				<li class="brag__list-item">99designs</li>
+			</ul>
+		</section>
+  </section>
+    
+ </section>
+  <footer>
+   		<!-- <p>I'm currently working at <a class="company-name" href="https://www.dailycare.com.au">Daily Care</a> as a full stack developer</p> -->
+		<nav>
+			<ul role="list" class="link-card-grid">
+				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
+				<li class="link-card-grid--item"><a href="https://www.linkedin.com/in/powellm/">LinkedIn</a></li>
+				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
+			</ul>
+		</nav>
+		</header>
+
+		<SpotifyCard />
+  </footer> 
 </Layout>
 
 <style>
 	main {
 		margin: auto;
 		padding: 1.5rem;
-		max-width: 60ch;
+	}
+
+	.container {
+		max-width: 90vw;
+    margin: 0 auto;
+
+	}
+
+  .introduction {
+		height: 70vh;
+		position: relative;
+    display: flex;
+    align-items: center;
+	}
+
+  .introduction__content {
+    width: 60%;
+  }
+
+	.brag {
+		height: 70vh;
+		background-color: #FE6D7C;
+    color: #212535;
+    padding: 3rem 0;
+
+  }
+
+  .brag__heading {
+    font-weight: bolder;
+    font-size: 3rem;
+    margin-top: 3rem;
+  }
+
+  .brag__list {
+    list-style: none;
+    font-size: 2rem; 
+    font-weight: bold;
+    line-height: 2;
+    margin-block-start: 0;
+    padding-inline-start: 0;
+  }
+	.widget {
+		background-color: #373B57;
+		position: absolute;
+		top: 50%;
+		right: 25%;
+    height: 600px;
+    width: 350px;
 	}
 	h1 {
-		font-size: 3rem;
+		font-size: 4.5rem;
 		font-weight: 800;
 		margin: 0;
+    color: var(--almost-red);
+    font-weight: 900;
 	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
+
+	p {
+		color: var(--almost-red);
+		font-size: 1.5rem;
+		line-height: 2;
+		font-family: var(--font-body);
 	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
+	.byline {
+		animation: bgColor 15s infinite linear;
 		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
+    font-size: 2.5rem;
 	}
-	.instructions strong {
-		color: rgb(var(--accent));
+	.company-name {
+		font-weight: 700;
 	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+
+  .link-card-grid {
+
+  }
+  .link-card-grid--item {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    outline: 2px solid yellow;
+  }
+
+  @keyframes bgColor {
+    0% {
+      color: #FF1493;
+    }
+    25% {
+      color: #FFA500;
+    }
+
+    50% {
+      color: #7FFF00;
+    }
+
+    87.5% {
+      color: #9932CC;
+    }
+    100% {
+      color: #FF1493;
+    }
+  }
+
+.text-gradient {
+	background-image: var(--accent-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-size: 400%;
+	background-position: 0%;
+}
+
+
+
 </style>
