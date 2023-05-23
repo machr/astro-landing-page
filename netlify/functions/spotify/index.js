@@ -41,16 +41,20 @@ const handler = async () =>  {
 
   export const getLastPlayedTracks = async (token, limit) => {
     let songLimit = limit ? limit : 10;
-    const response = await fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  
-    const data = await response.json();
-    console.log(data); // Log the entire response
-  
-    return data;
+    try {
+      const response = await fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      const data = await response.json();
+      console.log(data); // Log the entire response
+      
+      return data;
+    } catch (error) {
+      return { statusCode: 500, body: error.toString() }
+    }
   };
 
 

@@ -28,36 +28,44 @@ const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 const encoded = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 const LAST_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
-const getAccessToken = async () => {
-  const response = await fetch(TOKEN_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${encoded}`,
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token
-    })
-  });
-  return response.json();
-};
-const getLastPlayedTracks = async (limit) => {
-  let songLimit = limit ? limit : 10;
-  const { access_token } = await getAccessToken();
-  return fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
-    headers: {
-      Authorization: `Bearer ${access_token}`
-    }
-  });
-};
 const handler = async () => {
-  const response = await getLastPlayedTracks(10);
-  const data = response.data;
+  const { access_token } = await getAccessToken();
+  const response = await getLastPlayedTracks(access_token);
+  console.log(response.data);
   return {
     statusCode: 200,
-    body: JSON.stringify(data)
+    body: JSON.stringify(response.data)
   };
+};
+const getAccessToken = async () => {
+  try {
+    const response = await fetch(TOKEN_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${encoded}`,
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token
+      })
+    });
+    return response.json();
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+const getLastPlayedTracks = async (token, limit) => {
+  let songLimit = limit ? limit : 10;
+  const response = await fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+  const data = await response.json();
+  console.log(data);
+  return data;
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

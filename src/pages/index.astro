@@ -1,15 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SpotifyCard from '../components/SpotifyCard'
-import { getLastPlayedTracks } from '../lib/spotify'
-
-const response = await getLastPlayedTracks(10)
-const { items } = await response.json();
-const formattedTracks = items.map(({track}) => ({
-    artist: track.artists.map((_artist) => _artist.name).join(', '),
-    title: track.name,
-    trackUrl: track.external_urls.spotify
-}))
 ---
 
 <Layout title="Welcome to Astro.">
@@ -49,7 +40,7 @@ const formattedTracks = items.map(({track}) => ({
 			</ul>
 		</nav>
 		</header>
-	<SpotifyCard songs={formattedTracks}/>
+	<SpotifyCard />
   </footer> 
 </Layout>
 

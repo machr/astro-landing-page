@@ -1,4 +1,7 @@
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/api/spotify"
+  to = "/.netlify/functions/spotify"
   status = 200
+
+[dev]
+  targetPort = 4000
