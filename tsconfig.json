@@ -3,5 +3,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
   },
-  "verbatimModuleSyntax": true
+  "verbatimModuleSyntax": true,
+  "jsx": "react-jsx",
+  "jsxImportSource": "react"
 }

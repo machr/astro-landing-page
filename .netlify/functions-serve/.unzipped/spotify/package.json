@@ -1,0 +1,1 @@
+{"name":"landing-page","type":"commonjs","version":"0.0.1","scripts":{"dev":"astro dev --port=5000","start":"astro dev","build":"astro build","preview":"astro preview","astro":"astro"},"dependencies":{"@fontsource/inter":"^4.5.10","@netlify/functions":"^1.6.0","astro":"^2.4.1"}}

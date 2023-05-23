@@ -1,7 +1,6 @@
 ---
-import SpotifyCard from '../components/SpotifyCard.astro';
 import Layout from '../layouts/Layout.astro';
-
+import SpotifyCard from '../components/SpotifyCard'
 
 ---
 
@@ -43,7 +42,7 @@ import Layout from '../layouts/Layout.astro';
 		</nav>
 		</header>
 
-		<SpotifyCard />
+		<SpotifyCard client:load />
   </footer> 
 </Layout>
 
