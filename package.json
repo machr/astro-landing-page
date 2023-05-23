@@ -10,7 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^2.2.0",
     "@fontsource/inter": "^4.5.10",
+    "@netlify/functions": "^1.6.0",
     "astro": "^2.4.1"
   }
 }
