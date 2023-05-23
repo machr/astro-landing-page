@@ -1,14 +1,16 @@
-export default async function SpotifyCard() {
-    // import { getLastPlayedTracks } from '../lib/spotify'
+   import { getLastPlayedTracks } from '../lib/spotify'
 
+
+export default async function SpotifyCard() {
+    
     // const response = await getLastPlayedTracks(10)
     const response = await fetch('/api/spotify')
     const { items } = await response.json();
-    // const formattedTracks = items.map(({track}) => ({
-    //     artist: track.artists.map((_artist) => _artist.name).join(', '),
-    //     title: track.name,
-    //     trackUrl: track.external_urls.spotify
-    // }))
+    const formattedTracks = items.map(({track}) => ({
+        artist: track.artists.map((_artist) => _artist.name).join(', '),
+        title: track.name,
+        trackUrl: track.external_urls.spotify
+    }))
 
     console.log(items)
     return (

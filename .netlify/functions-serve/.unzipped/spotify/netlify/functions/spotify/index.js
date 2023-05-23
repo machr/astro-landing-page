@@ -58,14 +58,18 @@ const getAccessToken = async () => {
 };
 const getLastPlayedTracks = async (token, limit) => {
   let songLimit = limit ? limit : 10;
-  const response = await fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  const data = await response.json();
-  console.log(data);
-  return data;
+  try {
+    const response = await fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return { statusCode: 500, body: error.toString() };
+  }
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
