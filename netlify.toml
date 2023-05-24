@@ -2,6 +2,7 @@
   from = "/api/spotify"
   to = "/.netlify/functions/spotify"
   status = 200
+  force = true
 
 [dev]
   targetPort = 4000
