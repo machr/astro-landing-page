@@ -1,6 +1,6 @@
 ---
+import '../reset.css'
 import Layout from '../layouts/Layout.astro';
-import SpotifyCard from '../components/SpotifyCard'
 ---
 
 <Layout title="Welcome to Astro.">
@@ -11,6 +11,14 @@ import SpotifyCard from '../components/SpotifyCard'
 			  <h1 class="text-gradient">Hi I'm Mark</h1>
 		    <h2 class="byline">I am a Frontend Developer living in Melbourne, Australia</h2>
       </section>
+
+		<nav>
+			<ul role="list" class="link-card-grid">
+				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
+				<li class="link-card-grid--item"><a href="https://www.linkedin.com/in/powellm/">LinkedIn</a></li>
+				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
+			</ul>
+		</nav>
     </section>
   </section>
   <section>
@@ -28,19 +36,15 @@ import SpotifyCard from '../components/SpotifyCard'
 			</ul>
 		</section>
   </section>
-    
- </section>
-  <footer>
-   		<!-- <p>I'm currently working at <a class="company-name" href="https://www.dailycare.com.au">Daily Care</a> as a full stack developer</p> -->
-		<nav>
-			<ul role="list" class="link-card-grid">
-				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
-				<li class="link-card-grid--item"><a href="https://www.linkedin.com/in/powellm/">LinkedIn</a></li>
-				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
-			</ul>
-		</nav>
-		</header>
-	<SpotifyCard />
+ 
+  <footer class="footer">
+    <section class="container">
+      <ul>
+        <li>Made with Astro</li>
+        <li>Hosted on Netlify</li>
+        <li>Copyright {new Date().getFullYear()}</li>
+      </ul>
+    </section>
   </footer> 
 </Layout>
 
@@ -53,42 +57,63 @@ import SpotifyCard from '../components/SpotifyCard'
 	.container {
 		max-width: 90vw;
     margin: 0 auto;
-
 	}
 
   .introduction {
-		height: 70vh;
+		min-height: 70vh;
 		position: relative;
     display: flex;
     align-items: center;
+    
+    padding: 2rem 2rem;
+    @media screen and (min-width: 765px) {
+      margin-top: 0;
+      height: 70vh;
+    }
 	}
 
   .introduction__content {
-    width: 60%;
+    max-width: 100%;
+    @media screen and (min-width: 765px) {
+      max-width: 60%;
+    }
   }
 
 	.brag {
 		height: 70vh;
 		background-color: #FE6D7C;
     color: #212535;
-    padding: 3rem 0;
-
+    padding: 2rem 0;
+    @media screen and (min-width: 765px) {
+      padding: 3rem 0;
+    }
   }
 
   .brag__heading {
     font-weight: bolder;
     font-size: 3rem;
-    margin-top: 3rem;
+    margin: 1.5rem 0;
+    line-height: normal;
+    @media screen and (min-width: 765px) {
+      margin-top: 3rem;
+      line-height: 1.75;  
+    }
   }
 
   .brag__list {
-    list-style: none;
+    
     font-size: 2rem; 
     font-weight: bold;
-    line-height: 2;
-    margin-block-start: 0;
-    padding-inline-start: 0;
+    list-style: none;
+    @media screen and (min-width: 765px) {
+      line-height: 2;
+    }
   }
+
+  .brag__list-tem{
+    line-height: normal;
+  }
+
 	.widget {
 		background-color: #373B57;
 		position: absolute;
@@ -98,7 +123,7 @@ import SpotifyCard from '../components/SpotifyCard'
     width: 350px;
 	}
 	h1 {
-		font-size: 4.5rem;
+    font-size: clamp(2rem, 3rem, 4.5rem);
 		font-weight: 800;
 		margin: 0;
     color: var(--almost-red);
@@ -121,12 +146,30 @@ import SpotifyCard from '../components/SpotifyCard'
 	}
 
   .link-card-grid {
-
+    color: var(--almost-red);
+    display: flex;
+    flex-direction: column;
+    @media screen and (min-width: 765px) {
+      display: block;
+    }
   }
+
   .link-card-grid--item {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    outline: 2px solid yellow;
+    font-size: 2rem;
+  }
+
+  .link-card-grid--item a {
+    text-decoration: none;
+    border-bottom: 2px solid var(--almost-red);
+    color: var(--almost-red);
+    @media screen and (min-width: 765px) {
+      padding: 0.5rem;
+    }
+  }
+
+  .footer {
+    padding: 2rem;
   }
 
   @keyframes bgColor {
