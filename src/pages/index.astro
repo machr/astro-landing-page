@@ -4,129 +4,86 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Welcome to Astro.">
-
-	<section class="introduction">
+  <main class="introduction">
     <section class="container">
-      <section class="introduction__content">
-			  <h1 class="text-gradient">Hi I'm Mark</h1>
-		    <h2 class="byline">I am a Frontend Developer living in Melbourne, Australia</h2>
-      </section>
+      
+        <section class="introduction__content">
+          <h1 class="animated-text-color">Hi I'm Mark.</h1>
+          <h2 class="byline animated-text-color">I am a Frontend Developer <br> living in Melbourne, Australia</h2>
+          <p>I have previously worked at Australian Football League, A Cloud Guru, Pluralsight and 99designs</p>
+          <p>I'm currently 
+            <a href="https://www.linkedin.com/in/powellm/" class="tooltip">
+              available for hire!
+              <span class="tooltip-text">Click to view my LinkedIn profile</span>
+            </a>
+          </p>
+        </section>
 
-		<nav>
-			<ul role="list" class="link-card-grid">
-				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
-				<li class="link-card-grid--item"><a href="https://www.linkedin.com/in/powellm/">LinkedIn</a></li>
-				<li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
-			</ul>
-		</nav>
+      <nav>
+        <ul role="list" class="link-card-grid">
+          <li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
+          <li class="link-card-grid--item"><a href="https://www.linkedin.com/in/powellm/">LinkedIn</a></li>
+          <li class="link-card-grid--item"><a href="https://www.polywork.com/machr">Polywork</a></li>
+        </ul>
+      </nav>
+  
+
+    <section class="projects">
+      <h2>Latest silly project</h2>
+      <a href="https://mocked-up.netlify.app/">Sponge Bob Mocking text generator</a>
     </section>
-  </section>
-  <section>
     
-	<section class="brag">
-    <section class="container">
-
-			<h2 class="brag__heading">As seen in the codebases of</h2>
-			<ul class="brag__list">
-				<li class="brag__list-item">Wellcom Worldwide</li>
-				<li class="brag__list-item">Australian Football League</li>
-				<li class="brag__list-item">A Cloud Guru</li>
-				<li class="brag__list-item">Pluralsight</li>
-				<li class="brag__list-item">99designs</li>
-			</ul>
-		</section>
-  </section>
- 
-  <footer class="footer">
-    <section class="container">
-      <ul>
-        <li>Made with Astro</li>
-        <li>Hosted on Netlify</li>
-        <li>Copyright {new Date().getFullYear()}</li>
-      </ul>
     </section>
-  </footer> 
+  </main>
 </Layout>
 
 <style>
+
+  body {
+    height: 100%;
+  }
 	main {
-		margin: auto;
 		padding: 1.5rem;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin: auto 3rem;
 	}
 
 	.container {
 		max-width: 90vw;
-    margin: 0 auto;
 	}
 
   .introduction {
-		min-height: 70vh;
 		position: relative;
-    display: flex;
-    align-items: center;
-    
     padding: 2rem 2rem;
-    @media screen and (min-width: 765px) {
-      margin-top: 0;
-      height: 70vh;
-    }
 	}
 
   .introduction__content {
     max-width: 100%;
-    @media screen and (min-width: 765px) {
+    @media screen and (min-width: 1280px) {
       max-width: 60%;
     }
   }
 
-	.brag {
-		height: 70vh;
-		background-color: #FE6D7C;
-    color: #212535;
-    padding: 2rem 0;
-    @media screen and (min-width: 765px) {
-      padding: 3rem 0;
-    }
+  .animated-text-color {
+    animation: bgColor 15s infinite linear;
   }
 
-  .brag__heading {
-    font-weight: bolder;
-    font-size: 3rem;
-    margin: 1.5rem 0;
-    line-height: normal;
-    @media screen and (min-width: 765px) {
-      margin-top: 3rem;
-      line-height: 1.75;  
-    }
+  .projects {
+    margin: 2rem 0;
   }
 
-  .brag__list {
-    
-    font-size: 2rem; 
-    font-weight: bold;
-    list-style: none;
-    @media screen and (min-width: 765px) {
-      line-height: 2;
-    }
+  .projects h2 {
+    line-height: 2;
+    color: var(--almost-red);
+    font-weight: 500;
   }
 
-  .brag__list-tem{
-    line-height: normal;
-  }
-
-	.widget {
-		background-color: #373B57;
-		position: absolute;
-		top: 50%;
-		right: 25%;
-    height: 600px;
-    width: 350px;
-	}
 	h1 {
     font-size: clamp(2rem, 3rem, 4.5rem);
 		font-weight: 800;
 		margin: 0;
-    color: var(--almost-red);
     font-weight: 900;
 	}
 
@@ -135,71 +92,102 @@ import Layout from '../layouts/Layout.astro';
 		font-size: 1.5rem;
 		line-height: 2;
 		font-family: var(--font-body);
+    @media screen and (min-width: 765px) {
+      line-height: 1.5;
+    }
 	}
 	.byline {
-		animation: bgColor 15s infinite linear;
+		animation: bgColor 10s infinite linear;
 		font-weight: bold;
     font-size: 2.5rem;
-	}
-	.company-name {
-		font-weight: 700;
+    margin: 2rem auto;
 	}
 
   .link-card-grid {
     color: var(--almost-red);
     display: flex;
     flex-direction: column;
-    @media screen and (min-width: 765px) {
-      display: block;
-    }
+    margin: 2rem 0;
   }
 
   .link-card-grid--item {
     display: inline-block;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .link-card-grid--item a {
-    text-decoration: none;
     border-bottom: 2px solid var(--almost-red);
     color: var(--almost-red);
-    @media screen and (min-width: 765px) {
-      padding: 0.5rem;
-    }
+    text-decoration: none;
   }
 
-  .footer {
-    padding: 2rem;
+  .link-card-grid--item a:after {
+    content: '\2192';
+    margin-left: 0.5rem;
+  }
+  .link-card-grid--item a:hover:after {
+    margin-left: 1rem;
   }
 
   @keyframes bgColor {
     0% {
-      color: #FF1493;
+      color: #af2ac9;
     }
     25% {
-      color: #FFA500;
+      color: #c575e7;
     }
 
     50% {
-      color: #7FFF00;
+      color: #a72e85;
     }
 
     87.5% {
-      color: #9932CC;
+      color: var(--accent-pink);
     }
     100% {
-      color: #FF1493;
+      color: #dc14ff;
     }
   }
 
-.text-gradient {
-	background-image: var(--accent-gradient);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background-size: 400%;
-	background-position: 0%;
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
 }
 
+.tooltip .tooltip-text {
+  font-size: 1rem;
+  visibility: hidden;
+  width: 280px;
+  background-color: #5d3767;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
 
 </style>
