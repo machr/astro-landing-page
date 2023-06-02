@@ -1,8 +1,8 @@
 [[redirects]]
-  from = "/api/spotify"
-  to = "/.netlify/functions/spotify"
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
   status = 200
-  force = true
 
 [dev]
-  targetPort = 4000
+  command = "astro dev"
+  targetPort = 3000

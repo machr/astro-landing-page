@@ -7,13 +7,19 @@ const encoded = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const LAST_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
 
 const handler = async () =>  {
-    const { access_token } = await getAccessToken()
-    const response = await getLastPlayedTracks(access_token)
-    console.log(response.data)
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response.data)
-    };
+    try {
+      const { access_token } = await getAccessToken()
+      const response = await getLastPlayedTracks(access_token)
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response)
+      };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify(err.message)
+      }
+    }
   };
 
   export const getAccessToken = async () => {
@@ -41,20 +47,14 @@ const handler = async () =>  {
 
   export const getLastPlayedTracks = async (token, limit) => {
     let songLimit = limit ? limit : 10;
-    try {
-      const response = await fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      
-      const data = await response.json();
-      console.log(data); // Log the entire response
-      
-      return data;
-    } catch (error) {
-      return { statusCode: 500, body: error.toString() }
-    }
+    const response = await fetch(`${LAST_PLAYED_ENDPOINT}?limit=${songLimit}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  
+    const data = await response.json();  
+    return data;
   };
 
 export { handler };
