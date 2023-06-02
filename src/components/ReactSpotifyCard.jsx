@@ -1,27 +1,47 @@
-import react from '@astrojs/react'
-// import { getLastPlayedTracks } from '../lib/spotify'
-// const response = await getLastPlayedTracks(10)
+import React, { useEffect, useState } from 'react'
 
 const getSpotifySongs = async () => {
-    const response = await fetch('/api/spotify')
-    console.log('getSPotifySongs response', response)
-    const { items } = await response;
-    return items
-}
+  const response = await fetch('/api/spotify');
+  const data = await response.json();
+  console.log(data)
+  return data.items;
+};
 
-export default  function SpotifyCard() {
-    const songs = getSpotifySongs();
+const ReactSpotifyCard = () => {
+    const [formattedTracks, setFormattedTracks] = useState([]);
 
-    const formattedTracks = songs.map(({track}) => ({
+  useEffect(() => {
+    const fetchSpotifySongs = async () => {
+      const songs = await getSpotifySongs();
+      const tracks = songs.map(({ track }) => ({
+        id: track.id,
         artist: track.artists.map((_artist) => _artist.name).join(', '),
         title: track.name,
-        trackUrl: track.external_urls.spotify
-    }))
+        trackUrl: track.external_urls.spotify,
+      }));
+      setFormattedTracks(tracks);
+    };
 
-    console.log(formattedTracks)
+    fetchSpotifySongs();
+  }, []);
+
+  const showSongsList = (songs) => {
     return (
-        <>
-        <div>Spotify Card</div>
-        </>
+      songs.map(song => 
+        <li key={song.id}><a href={song.trackUrl}>{song.artist} - {song.title}</a></li>
+      )
     )
+  }
+
+  return formattedTracks.length > 0 && (
+      <div>
+        <h4>Last played songs</h4>
+        <ul>
+          {showSongsList(formattedTracks)}
+        </ul>
+      </div>
+      
+  )
 }
+
+export { ReactSpotifyCard };

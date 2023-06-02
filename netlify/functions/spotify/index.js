@@ -13,6 +13,9 @@ const handler = async () =>  {
       const response = await getLastPlayedTracks(access_token)
       return {
         statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": '*',
+        },
         body: JSON.stringify(response)
       };
     } catch (err) {
