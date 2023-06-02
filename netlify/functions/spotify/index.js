@@ -10,14 +10,15 @@ const handler = async () =>  {
     try {
       const { access_token } = await getAccessToken()
       const response = await getLastPlayedTracks(access_token)
-      console.log('response from handler', JSON.stringify(response))
       return {
         statusCode: 200,
         body: JSON.stringify(response)
       };
     } catch (err) {
-      console.error(err)
-      throw new Error('Netlify function failed')
+      return {
+        statusCode: 500,
+        body: JSON.stringify(err.message)
+      }
     }
   };
 
@@ -52,9 +53,7 @@ const handler = async () =>  {
       },
     });
   
-    const data = await response.json();
-    console.log('data from getLastPlayed', data); // Log the entire response
-  
+    const data = await response.json();  
     return data;
   };
 
