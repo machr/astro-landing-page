@@ -9,15 +9,14 @@ const getSpotifySongs = async () => {
     return items
 }
 
-const songs = await getSpotifySongs()
-
-const formattedTracks = songs.map(({track}) => ({
-    artist: track.artists.map((_artist) => _artist.name).join(', '),
-    title: track.name,
-    trackUrl: track.external_urls.spotify
-}))
-
 export default function SpotifyCard() {
+    const songs = getSpotifySongs()
+
+    const formattedTracks = songs.map(({track}) => ({
+        artist: track.artists.map((_artist) => _artist.name).join(', '),
+        title: track.name,
+        trackUrl: track.external_urls.spotify
+    }))
     return (
         <>
         <div>Spotify Card</div>
