@@ -6,7 +6,6 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Mark Christiansen | Frontend Developer">
   <main class="introduction">
     <section class="container">
-      
         <section class="introduction__content">
           <h1 class="animated-text-color">Hi I'm Mark.</h1>
           <h2 class="byline animated-text-color">I am a Frontend Developer <br> living in Melbourne, Australia</h2>
@@ -32,11 +31,12 @@ import Layout from '../layouts/Layout.astro';
       <h2>Latest silly project</h2>
       <a href="https://mocky-bird.netlify.app/">Sponge Bob Mocking text generator</a>
     </section>
-    <ReactSpotifyCard client:load/>
-  </section>
-  <section>
     
- </section>
+  </section>
+  </main>
+  <div class="spotify__wrapper">  
+    <ReactSpotifyCard client:load/>
+  </div>
 </Layout>
 
 <style>
@@ -129,6 +129,13 @@ import Layout from '../layouts/Layout.astro';
   }
   .link-card-grid--item a:hover:after {
     margin-left: 1rem;
+  }
+
+  .spotify__wrapper {
+    position: fixed;
+    z-index: 30;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   @keyframes bgColor {

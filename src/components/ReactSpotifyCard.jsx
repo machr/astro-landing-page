@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 const getSpotifySongs = async () => {
   const response = await fetch('/api/spotify');
   const data = await response.json();
+  console.log(data)
   return data.items;
 };
 
@@ -13,6 +14,7 @@ const ReactSpotifyCard = () => {
     const fetchSpotifySongs = async () => {
       const songs = await getSpotifySongs();
       const tracks = songs.map(({ track }) => ({
+        id: track.id,
         artist: track.artists.map((_artist) => _artist.name).join(', '),
         title: track.name,
         trackUrl: track.external_urls.spotify,
@@ -23,12 +25,23 @@ const ReactSpotifyCard = () => {
     fetchSpotifySongs();
   }, []);
 
-  console.log(formattedTracks);
+  const showSongsList = (songs) => {
     return (
-        <>
-        <div>Spotify Card</div>
-        </>
+      songs.map(song => 
+        <li key={song.id}><a href={song.trackUrl}>{song.artist} - {song.title}</a></li>
+      )
     )
+  }
+
+  return formattedTracks.length > 0 && (
+      <div>
+        <h4>Last played songs</h4>
+        <ul>
+          {showSongsList(formattedTracks)}
+        </ul>
+      </div>
+      
+  )
 }
 
 export { ReactSpotifyCard };
