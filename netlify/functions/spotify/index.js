@@ -1,4 +1,5 @@
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
+
 const client_id = process.env.SPOTIFY_CLIENT_ID
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN
@@ -18,6 +19,7 @@ const handler = async () =>  {
         body: JSON.stringify(response)
       };
     } catch (err) {
+      console.error(err)
       return {
         statusCode: 500,
         body: JSON.stringify(err.message)
