@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
 const getSpotifySongs = async () => {
-  const response = await fetch('https://machr-landing-page.netlify.app/api/spotify/api/spotify');
+  const response = await fetch('/api/spotify');
   const data = await response.json();
   return data.items;
 };
 
 const ReactSpotifyCard = () => {
-  const [formattedTracks, setFormattedTracks] = useState([]);
+    const [formattedTracks, setFormattedTracks] = useState([]);
 
   useEffect(() => {
     const fetchSpotifySongs = async () => {
@@ -24,12 +24,11 @@ const ReactSpotifyCard = () => {
   }, []);
 
   console.log(formattedTracks);
-
-  return (
-    <>
-      <div>Spotify Card</div>
-    </>
-  );
-};
+    return (
+        <>
+        <div>Spotify Card</div>
+        </>
+    )
+}
 
 export { ReactSpotifyCard };
