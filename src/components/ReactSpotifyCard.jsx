@@ -3,21 +3,22 @@ import react from '@astrojs/react'
 // const response = await getLastPlayedTracks(10)
 
 const getSpotifySongs = async () => {
-    const response = fetch('/api/spotify')
+    const response = await fetch('/api/spotify')
     console.log('getSPotifySongs response', response)
-    const { items } = response;
+    const { items } = await response;
     return items
 }
 
-const songs = await getSpotifySongs()
+export default  function SpotifyCard() {
+    const songs = getSpotifySongs();
 
-const formattedTracks = songs.map(({track}) => ({
-    artist: track.artists.map((_artist) => _artist.name).join(', '),
-    title: track.name,
-    trackUrl: track.external_urls.spotify
-}))
+    const formattedTracks = songs.map(({track}) => ({
+        artist: track.artists.map((_artist) => _artist.name).join(', '),
+        title: track.name,
+        trackUrl: track.external_urls.spotify
+    }))
 
-export default function SpotifyCard() {
+    console.log(formattedTracks)
     return (
         <>
         <div>Spotify Card</div>
