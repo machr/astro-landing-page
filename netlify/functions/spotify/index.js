@@ -15,6 +15,7 @@ const handler = async () =>  {
         body: JSON.stringify(response)
       };
     } catch (err) {
+      console.error(err)
       return {
         statusCode: 500,
         body: JSON.stringify(err.message)
