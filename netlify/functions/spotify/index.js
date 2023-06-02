@@ -7,13 +7,18 @@ const encoded = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const LAST_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played`;
 
 const handler = async () =>  {
-    const { access_token } = await getAccessToken()
-    const response = await getLastPlayedTracks(access_token)
-    console.log(response.data)
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response.data)
-    };
+    try {
+      const { access_token } = await getAccessToken()
+      const response = await getLastPlayedTracks(access_token)
+      console.log('response from handler', JSON.stringify(response))
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response)
+      };
+    } catch (err) {
+      console.error(err)
+      throw new Error('Netlify function failed')
+    }
   };
 
   export const getAccessToken = async () => {
@@ -48,7 +53,7 @@ const handler = async () =>  {
     });
   
     const data = await response.json();
-    console.log(data); // Log the entire response
+    console.log('data from getLastPlayed', data); // Log the entire response
   
     return data;
   };
