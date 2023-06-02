@@ -8,4 +8,5 @@
 
 [dev]
   command = "astro dev"
+  
   targetPort = 3000
