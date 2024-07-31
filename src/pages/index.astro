@@ -1,197 +1,201 @@
 ---
-import  { ReactSpotifyCard } from '../components/ReactSpotifyCard'
-import Layout from '../layouts/Layout.astro';
+import SpotifyCard from "../components/SpotifyCard.svelte";
+import Layout from "../layouts/Layout.astro";
+import { getLastPlayedTracks } from "../lib/spotify";
+
+export const songs = await getLastPlayedTracks(10);
 ---
 
 <Layout title="Mark Christiansen | Frontend Developer">
-  <main class="introduction">
-    <section class="container">
+  <section class="container">
+    <main class="introduction">
+      <section>
         <section class="introduction__content">
           <h1 class="animated-text-color">Hi I'm Mark.</h1>
-          <h2 class="byline animated-text-color">I am a Frontend Developer <br> living in Melbourne, Australia</h2>
+          <h2 class="byline animated-text-color">I am a Frontend Developer <br /> living in Melbourne, Australia</h2>
           <p>I have previously worked at Australian Football League, A Cloud Guru, Pluralsight and 99designs</p>
-          <p>I'm currently working at <a href="https://cookaborough.com/">Cookaborough</a> as a Frontend Developer
+          <p>
+            I'm currently working at <a class="employer" href="https://cookaborough.com/"
+              ><span class="highlighted">Cookaborough</span></a
+            > as a Frontend Developer
           </p>
         </section>
 
-      <nav>
-        <ul role="list" class="link-card-grid">
-          <li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
-          <li class="link-card-grid--item"><a href="https://www.linkedin.com/in/powellm/">LinkedIn</a></li>
-          <li class="link-card-grid--item"><a href="https://www.polywork.com/machr">Polywork</a></li>
-        </ul>
-      </nav>
-  
+        <nav>
+          <ul role="list" class="link-card-grid">
+            <li class="link-card-grid--item"><a href="https://github.com/machr">Github</a></li>
+            <li class="link-card-grid--item"><a href="https://www.linkedin.com/in/powellm/">LinkedIn</a></li>
+            <li class="link-card-grid--item"><a href="https://www.polywork.com/machr">Polywork</a></li>
+          </ul>
+        </nav>
 
-    <section class="projects">
-      <h2>Latest silly project</h2>
-      <a href="https://mocky-bird.netlify.app/">Sponge Bob Mocking text generator</a>
-    </section>
-    
+        <section class="projects">
+          <h2>Latest silly project</h2>
+          <a href="https://mocky-bird.netlify.app/">Sponge Bob Mocking text generator</a>
+        </section>
+      </section>
+    </main>
+    <aside>
+      <SpotifyCard songs={songs} client:load />
+    </aside>
   </section>
-  </main>
-  <div class="spotify__wrapper">  
-    <ReactSpotifyCard client:load/>
-  </div>
+
+  <style>
+    body {
+      height: 100%;
+    }
+    main {
+      padding: 1.5rem;
+      display: flex;
+      height: 100%;
+      align-items: center;
+      margin: auto 3rem;
+    }
+
+    .container {
+      max-width: 1536px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+    }
+
+    .introduction,
+    aside {
+      padding: 2rem 2rem;
+    }
+
+    .employer {
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .highlighted {
+      background-color: var(--almost-red);
+      color: var(--dark-blue);
+    }
+
+    .animated-text-color {
+      animation: bgColor 15s infinite linear;
+    }
+
+    .projects {
+      margin: 2rem 0;
+    }
+
+    .projects h2 {
+      line-height: 2;
+      color: var(--almost-red);
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 3rem, 4.5rem);
+      font-weight: 800;
+      margin: 0;
+      font-weight: 900;
+    }
+
+    p {
+      color: var(--almost-red);
+      font-size: 1.5rem;
+      line-height: 2;
+      font-family: var(--font-body);
+      @media screen and (min-width: 765px) {
+        line-height: 1.5;
+      }
+    }
+    .byline {
+      animation: bgColor 10s infinite linear;
+      font-weight: bold;
+      font-size: 2.5rem;
+      margin: 2rem auto;
+    }
+
+    .link-card-grid {
+      color: var(--almost-red);
+      display: flex;
+      flex-direction: column;
+      margin: 2rem 0;
+    }
+
+    .link-card-grid--item {
+      display: inline-block;
+      font-size: 1.5rem;
+    }
+
+    .link-card-grid--item a {
+      border-bottom: 2px solid var(--almost-red);
+      color: var(--almost-red);
+      text-decoration: none;
+    }
+
+    .link-card-grid--item a:after {
+      content: "\2192";
+      margin-left: 0.5rem;
+    }
+    .link-card-grid--item a:hover:after {
+      margin-left: 1rem;
+    }
+
+    @keyframes bgColor {
+      0% {
+        color: #af2ac9;
+      }
+      25% {
+        color: #c575e7;
+      }
+
+      50% {
+        color: #a72e85;
+      }
+
+      87.5% {
+        color: var(--accent-pink);
+      }
+      100% {
+        color: #dc14ff;
+      }
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltip-text {
+      font-size: 1rem;
+      visibility: hidden;
+      width: 280px;
+      background-color: #5d3767;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
 </Layout>
-
-<style>
-  body {
-    height: 100%;
-  }
-	main {
-		padding: 1.5rem;
-    display: flex;
-    height: 100%;
-    align-items: center;
-    margin: auto 3rem;
-	}
-
-	.container {
-		max-width: 90vw;
-	}
-
-  .introduction {
-		position: relative;
-    padding: 2rem 2rem;
-	}
-
-  .introduction__content {
-    max-width: 100%;
-    @media screen and (min-width: 1280px) {
-      max-width: 60%;
-    }
-  }
-
-  .animated-text-color {
-    animation: bgColor 15s infinite linear;
-  }
-
-  .projects {
-    margin: 2rem 0;
-  }
-
-  .projects h2 {
-    line-height: 2;
-    color: var(--almost-red);
-    font-weight: 500;
-  }
-
-	h1 {
-    font-size: clamp(2rem, 3rem, 4.5rem);
-		font-weight: 800;
-		margin: 0;
-    font-weight: 900;
-	}
-
-	p {
-		color: var(--almost-red);
-		font-size: 1.5rem;
-		line-height: 2;
-		font-family: var(--font-body);
-    @media screen and (min-width: 765px) {
-      line-height: 1.5;
-    }
-	}
-	.byline {
-		animation: bgColor 10s infinite linear;
-		font-weight: bold;
-    font-size: 2.5rem;
-    margin: 2rem auto;
-	}
-
-  .link-card-grid {
-    color: var(--almost-red);
-    display: flex;
-    flex-direction: column;
-    margin: 2rem 0;
-  }
-
-  .link-card-grid--item {
-    display: inline-block;
-    font-size: 1.5rem;
-  }
-
-  .link-card-grid--item a {
-    border-bottom: 2px solid var(--almost-red);
-    color: var(--almost-red);
-    text-decoration: none;
-  }
-
-  .link-card-grid--item a:after {
-    content: '\2192';
-    margin-left: 0.5rem;
-  }
-  .link-card-grid--item a:hover:after {
-    margin-left: 1rem;
-  }
-
-  .spotify__wrapper {
-    position: fixed;
-    z-index: 30;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  @keyframes bgColor {
-    0% {
-      color: #af2ac9;
-    }
-    25% {
-      color: #c575e7;
-    }
-
-    50% {
-      color: #a72e85;
-    }
-
-    87.5% {
-      color: var(--accent-pink);
-    }
-    100% {
-      color: #dc14ff;
-    }
-  }
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltip-text {
-  font-size: 1rem;
-  visibility: hidden;
-  width: 280px;
-  background-color: #5d3767;
-  color: #fff;
-  font-weight: 700;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip .tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
-}
-
-</style>

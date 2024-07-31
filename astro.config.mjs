@@ -1,8 +1,11 @@
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import netlify from '@astrojs/netlify/functions';
+import svelte from "@astrojs/svelte";
 
+import netlify from "@astrojs/netlify";
+
+// https://astro.build/config
 export default defineConfig({
-    integrations: [react()],
-    adapter: netlify(),
+  integrations: [svelte()],
+  output: "server",
+  adapter: netlify()
 });
